@@ -13,10 +13,12 @@ struct Country: Codable {
     var flag: String?
     var population: Int?
     var isSelected: Bool?
+    
 }
 
 struct CountryName: Codable {
     
     var common: String?
     var official: String?
+    
 }

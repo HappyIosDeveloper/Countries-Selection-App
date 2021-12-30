@@ -35,7 +35,6 @@ extension ViewController {
         setupNavigationController()
         setupTableView()
         setupSelectButton()
-        getCountries()
     }
     
     func setupNavigationController() {
@@ -68,20 +67,16 @@ extension ViewController {
 }
 
 // MARK: - Actions
-extension ViewController {
+extension ViewController: CountrySelectViewControllerDelegate {
+    
+    func countriesDidUpdate(countries: [Country]) {
+        self.countries = countries
+    }
     
     func selectBttonAction() {
-        
-    }
-}
-
-// MARK: - API Calls
-extension ViewController {
-    
-    func getCountries() {
-        WebService.shared.getAllCountries { countries in
-            self.countries = countries
-        }
+        let vc = storyboard?.instantiateViewController(withIdentifier: "CountrySelectViewController") as! CountrySelectViewController
+        vc.delegate = self
+        present(vc, animated: true)
     }
 }
 
@@ -94,7 +89,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CountryTableViewCell") as! CountryTableViewCell
-        cell.fill(width: countries[indexPath.row])
+        cell.fill(width: countries[indexPath.row], highlightSelectedCells: false)
         return cell
     }
     

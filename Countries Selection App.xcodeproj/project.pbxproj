@@ -21,6 +21,7 @@
 		0B5C9DEF277D85B9008283FE /* GlobalVariables.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5C9DEE277D85B9008283FE /* GlobalVariables.swift */; };
 		0B5C9DF2277D8A01008283FE /* TableViewCellExtensionHighlightEffects.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5C9DF1277D8A01008283FE /* TableViewCellExtensionHighlightEffects.swift */; };
 		0B5C9DF4277D8A47008283FE /* GlobalFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5C9DF3277D8A47008283FE /* GlobalFunctions.swift */; };
+		0B5C9DF6277D8F36008283FE /* CountrySelectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5C9DF5277D8F36008283FE /* CountrySelectViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +41,7 @@
 		0B5C9DEE277D85B9008283FE /* GlobalVariables.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalVariables.swift; sourceTree = "<group>"; };
 		0B5C9DF1277D8A01008283FE /* TableViewCellExtensionHighlightEffects.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCellExtensionHighlightEffects.swift; sourceTree = "<group>"; };
 		0B5C9DF3277D8A47008283FE /* GlobalFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalFunctions.swift; sourceTree = "<group>"; };
+		0B5C9DF5277D8F36008283FE /* CountrySelectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountrySelectViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,6 +113,7 @@
 			children = (
 				0B5C9DE8277D831D008283FE /* CountryTableViewCell.swift */,
 				0B5C9DE9277D831D008283FE /* CountryTableViewCell.xib */,
+				0B5C9DF5277D8F36008283FE /* CountrySelectViewController.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -201,6 +204,7 @@
 				0B5C9DEF277D85B9008283FE /* GlobalVariables.swift in Sources */,
 				0B5C9DD0277D7587008283FE /* ViewController.swift in Sources */,
 				0B5C9DCC277D7587008283FE /* AppDelegate.swift in Sources */,
+				0B5C9DF6277D8F36008283FE /* CountrySelectViewController.swift in Sources */,
 				0B5C9DF2277D8A01008283FE /* TableViewCellExtensionHighlightEffects.swift in Sources */,
 				0B5C9DE3277D77C6008283FE /* WebService.swift in Sources */,
 				0B5C9DE5277D7A12008283FE /* Country.swift in Sources */,

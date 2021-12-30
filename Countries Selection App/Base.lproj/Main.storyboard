@@ -74,6 +74,74 @@
             </objects>
             <point key="canvasLocation" x="-42.028985507246382" y="-27.455357142857142"/>
         </scene>
+        <!--Country Select View Controller-->
+        <scene sceneID="e7B-FP-reH">
+            <objects>
+                <viewController storyboardIdentifier="CountrySelectViewController" id="qpj-Tn-IRh" customClass="CountrySelectViewController" customModule="Countries_Selection_App" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="cQQ-f5-bA2">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="L0h-BU-A2s">
+                                <rect key="frame" x="0.0" y="44" width="414" height="60"/>
+                                <subviews>
+                                    <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="UqT-bS-lNs">
+                                        <rect key="frame" x="10" y="0.0" width="394" height="60"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </searchBar>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="N8r-6u-gc9"/>
+                                    <constraint firstAttribute="trailing" secondItem="UqT-bS-lNs" secondAttribute="trailing" constant="10" id="QSh-8t-R3E"/>
+                                    <constraint firstAttribute="bottom" secondItem="UqT-bS-lNs" secondAttribute="bottom" id="Sde-Lj-mTK"/>
+                                    <constraint firstItem="UqT-bS-lNs" firstAttribute="top" secondItem="L0h-BU-A2s" secondAttribute="top" id="nmd-W5-rLe"/>
+                                    <constraint firstItem="UqT-bS-lNs" firstAttribute="leading" secondItem="L0h-BU-A2s" secondAttribute="leading" constant="10" id="qw1-bu-7DA"/>
+                                </constraints>
+                            </view>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="7dC-PL-gzR">
+                                <rect key="frame" x="0.0" y="104" width="414" height="692"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xVf-Iy-XG1">
+                                <rect key="frame" x="20" y="816" width="374" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="dJZ-p1-xj8"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="15"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" title="Done"/>
+                                <connections>
+                                    <action selector="doneButtonAction:" destination="qpj-Tn-IRh" eventType="touchUpInside" id="aBK-TX-WU7"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="lmx-bd-gyP"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="xVf-Iy-XG1" firstAttribute="leading" secondItem="lmx-bd-gyP" secondAttribute="leading" constant="20" id="8Au-TX-CCo"/>
+                            <constraint firstItem="xVf-Iy-XG1" firstAttribute="top" secondItem="7dC-PL-gzR" secondAttribute="bottom" constant="20" id="90M-R7-I7P"/>
+                            <constraint firstItem="L0h-BU-A2s" firstAttribute="leading" secondItem="cQQ-f5-bA2" secondAttribute="leading" id="EIP-Bh-BOd"/>
+                            <constraint firstItem="7dC-PL-gzR" firstAttribute="top" secondItem="L0h-BU-A2s" secondAttribute="bottom" id="Fto-h9-g6L"/>
+                            <constraint firstAttribute="bottom" secondItem="xVf-Iy-XG1" secondAttribute="bottom" constant="30" id="Qm0-kK-h0J"/>
+                            <constraint firstItem="lmx-bd-gyP" firstAttribute="trailing" secondItem="L0h-BU-A2s" secondAttribute="trailing" id="WPX-wi-e80"/>
+                            <constraint firstItem="L0h-BU-A2s" firstAttribute="top" secondItem="lmx-bd-gyP" secondAttribute="top" id="XFD-3p-1Ap"/>
+                            <constraint firstItem="7dC-PL-gzR" firstAttribute="leading" secondItem="lmx-bd-gyP" secondAttribute="leading" id="fSc-mx-IbJ"/>
+                            <constraint firstItem="lmx-bd-gyP" firstAttribute="trailing" secondItem="xVf-Iy-XG1" secondAttribute="trailing" constant="20" id="n4V-fo-XaC"/>
+                            <constraint firstItem="lmx-bd-gyP" firstAttribute="trailing" secondItem="7dC-PL-gzR" secondAttribute="trailing" id="pYA-yV-iAH"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="fek-ac-zhW"/>
+                    <connections>
+                        <outlet property="doneButton" destination="xVf-Iy-XG1" id="RCg-ah-HaM"/>
+                        <outlet property="searchBar" destination="UqT-bS-lNs" id="gs6-It-AYf"/>
+                        <outlet property="tableView" destination="7dC-PL-gzR" id="4nf-UY-GRu"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="9yQ-s7-f0v" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1575.3623188405797" y="-27.455357142857142"/>
+        </scene>
     </scenes>
     <resources>
         <systemColor name="systemBackgroundColor">

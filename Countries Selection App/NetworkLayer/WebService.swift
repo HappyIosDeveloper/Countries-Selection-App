@@ -26,11 +26,16 @@ extension WebService {
     private func getRequest<T:Decodable>(url: URL, responseType: T.Type, comple: @escaping (T?)->()) {
         URLSession.shared.dataTask(with: url, completionHandler: { (data, response, error) in
             guard let data = data else { return }
-            do {
-                let parsedResponse = try JSONDecoder().decode(responseType.self , from: data)
-                comple(parsedResponse)
-            } catch {
-                print("WebService getRequest error: " + error.localizedDescription)
+            if error == nil {
+                do {
+                    let parsedResponse = try JSONDecoder().decode(responseType.self , from: data)
+                    comple(parsedResponse)
+                } catch {
+                    print("WebService getRequest error 1: " + error.localizedDescription)
+                    comple(nil)
+                }
+            } else {
+                print("WebService getRequest error 2: " + error.debugDescription)
                 comple(nil)
             }
         }).resume()

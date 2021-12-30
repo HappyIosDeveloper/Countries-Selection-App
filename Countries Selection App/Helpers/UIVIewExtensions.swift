@@ -38,9 +38,14 @@ extension UIView {
             }
         }
     }
-}
-
-extension UIView {
+    
+    func subviews<T:UIView>(ofType WhatType:T.Type) -> [T] {
+        var result = self.subviews.compactMap {$0 as? T}
+        for sub in self.subviews {
+            result.append(contentsOf: sub.subviews(ofType:WhatType))
+        }
+        return result
+    }
     
     static var nib: UINib {
         return UINib(nibName: "\(self)", bundle: nil)
@@ -48,20 +53,5 @@ extension UIView {
     
     static func instantiateFromNib() -> Self? {
         return nib.instantiate() as? Self
-    }
-}
-
-extension UINib {
-    
-    func instantiate() -> Any? {
-        return instantiate(withOwner: nil, options: nil).first
-    }
-}
-
-public extension Array where Element: Hashable {
-    
-    func uniqued() -> [Element] {
-        var seen = Set<Element>()
-        return filter{ seen.insert($0).inserted }
     }
 }

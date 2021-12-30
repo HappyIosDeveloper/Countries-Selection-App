@@ -19,10 +19,10 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uCP-re-1LR">
-                        <rect key="frame" x="20" y="10" width="382" height="70"/>
+                        <rect key="frame" x="20" y="8" width="382" height="74"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="M4i-zA-LIZ">
-                                <rect key="frame" x="20" y="26.5" width="342" height="17"/>
+                                <rect key="frame" x="20" y="28.5" width="342" height="17"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="14"/>
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -39,9 +39,9 @@
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 <constraints>
                     <constraint firstItem="uCP-re-1LR" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="AYe-Fx-qlV"/>
-                    <constraint firstAttribute="bottom" secondItem="uCP-re-1LR" secondAttribute="bottom" constant="10" id="Ao5-ob-B2x"/>
+                    <constraint firstAttribute="bottom" secondItem="uCP-re-1LR" secondAttribute="bottom" constant="8" id="Ao5-ob-B2x"/>
                     <constraint firstAttribute="trailing" secondItem="uCP-re-1LR" secondAttribute="trailing" constant="20" id="IZs-SO-7zs"/>
-                    <constraint firstItem="uCP-re-1LR" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="pcF-59-ASg"/>
+                    <constraint firstItem="uCP-re-1LR" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="pcF-59-ASg"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>

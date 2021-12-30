@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0B15A605277DB5AC003875BB /* GeneralExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B15A604277DB5AC003875BB /* GeneralExtensions.swift */; };
 		0B5C9DCC277D7587008283FE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5C9DCB277D7587008283FE /* AppDelegate.swift */; };
 		0B5C9DCE277D7587008283FE /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5C9DCD277D7587008283FE /* SceneDelegate.swift */; };
 		0B5C9DD0277D7587008283FE /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5C9DCF277D7587008283FE /* ViewController.swift */; };
@@ -27,6 +28,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0B15A604277DB5AC003875BB /* GeneralExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralExtensions.swift; sourceTree = "<group>"; };
 		0B5C9DC8277D7587008283FE /* Countries Selection App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Countries Selection App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0B5C9DCB277D7587008283FE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0B5C9DCD277D7587008283FE /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -59,6 +61,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0B15A606277DB673003875BB /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				0B5C9DCF277D7587008283FE /* ViewController.swift */,
+				0B5C9DF5277D8F36008283FE /* CountrySelectViewController.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
 		0B5C9DBF277D7587008283FE = {
 			isa = PBXGroup;
 			children = (
@@ -83,8 +94,7 @@
 				0B5C9DDF277D7741008283FE /* Helpers */,
 				0B5C9DF7277DA53A008283FE /* CustomViews */,
 				0B5C9DE1277D7759008283FE /* Cells */,
-				0B5C9DCF277D7587008283FE /* ViewController.swift */,
-				0B5C9DF5277D8F36008283FE /* CountrySelectViewController.swift */,
+				0B15A606277DB673003875BB /* ViewControllers */,
 				0B5C9DD1277D7587008283FE /* Main.storyboard */,
 				0B5C9DD4277D7588008283FE /* Assets.xcassets */,
 				0B5C9DCB277D7587008283FE /* AppDelegate.swift */,
@@ -101,6 +111,7 @@
 				0B5C9DEE277D85B9008283FE /* GlobalVariables.swift */,
 				0B5C9DF3277D8A47008283FE /* GlobalFunctions.swift */,
 				0B5C9DEC277D8570008283FE /* UIVIewExtensions.swift */,
+				0B15A604277DB5AC003875BB /* GeneralExtensions.swift */,
 				0B5C9DF1277D8A01008283FE /* TableViewCellExtensionHighlightEffects.swift */,
 			);
 			path = Helpers;
@@ -217,6 +228,7 @@
 				0B5C9DF9277DA574008283FE /* NoDataView.swift in Sources */,
 				0B5C9DED277D8570008283FE /* UIVIewExtensions.swift in Sources */,
 				0B5C9DF4277D8A47008283FE /* GlobalFunctions.swift in Sources */,
+				0B15A605277DB5AC003875BB /* GeneralExtensions.swift in Sources */,
 				0B5C9DEF277D85B9008283FE /* GlobalVariables.swift in Sources */,
 				0B5C9DD0277D7587008283FE /* ViewController.swift in Sources */,
 				0B5C9DCC277D7587008283FE /* AppDelegate.swift in Sources */,

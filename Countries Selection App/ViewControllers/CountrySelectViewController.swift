@@ -109,6 +109,16 @@ extension CountrySelectViewController {
             }
         }
     }
+    
+    func handleBandInternetConnectionMessage() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 5) { [self] in
+            if countries.isEmpty {
+                if let label = self.tableView.backgroundView?.subviews(ofType: UILabel.self).first {
+                    label.text = "Bad Interner Connection!"
+                }
+            }
+        }
+    }
 }
 
 // MARK: - Actions
@@ -191,6 +201,7 @@ extension CountrySelectViewController {
     @objc func getCountries() {
         DispatchQueue.main.async { [self] in
             tableView.backgroundView = indicator
+            handleBandInternetConnectionMessage()
         }
         WebService.shared.getAllCountries { [weak self] countries in
             self?.prepareCountriesForLoad(countries: countries)

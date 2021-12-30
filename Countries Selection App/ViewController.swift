@@ -34,6 +34,7 @@ extension ViewController {
     func setupPage() {
         setupNavigationController()
         setupTableView()
+        setupSelectButton()
         getCountries()
     }
     
@@ -42,8 +43,16 @@ extension ViewController {
     }
     
     func setupTableView() {
+        tableView.register(UINib(nibName: "CountryTableViewCell", bundle: nil), forCellReuseIdentifier: "CountryTableViewCell")
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.separatorStyle = .none
+    }
+    
+    func setupSelectButton() {
+        selectButton.backgroundColor = .systemBlue
+        selectButton.setTitleColor(.white, for: .normal)
+        selectButton.roundUp(.large)
     }
     
     func reloadTableView() {
@@ -84,8 +93,12 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell()
-        cell.textLabel?.text = countries[indexPath.row].name.common
+        let cell = tableView.dequeueReusableCell(withIdentifier: "CountryTableViewCell") as! CountryTableViewCell
+        cell.fill(width: countries[indexPath.row])
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return screenWidth / 5
     }
 }

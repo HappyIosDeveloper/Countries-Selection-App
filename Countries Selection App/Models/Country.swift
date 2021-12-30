@@ -10,6 +10,7 @@ import Foundation
 struct Country: Codable {
     
     var name: CountryName
+    var flag: String?
     var population: Int?
     var isSelected: Bool?
 }

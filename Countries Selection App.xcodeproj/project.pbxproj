@@ -15,6 +15,12 @@
 		0B5C9DD8277D7588008283FE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0B5C9DD6277D7588008283FE /* LaunchScreen.storyboard */; };
 		0B5C9DE3277D77C6008283FE /* WebService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5C9DE2277D77C6008283FE /* WebService.swift */; };
 		0B5C9DE5277D7A12008283FE /* Country.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5C9DE4277D7A12008283FE /* Country.swift */; };
+		0B5C9DEA277D831D008283FE /* CountryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5C9DE8277D831D008283FE /* CountryTableViewCell.swift */; };
+		0B5C9DEB277D831D008283FE /* CountryTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0B5C9DE9277D831D008283FE /* CountryTableViewCell.xib */; };
+		0B5C9DED277D8570008283FE /* UIVIewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5C9DEC277D8570008283FE /* UIVIewExtensions.swift */; };
+		0B5C9DEF277D85B9008283FE /* GlobalVariables.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5C9DEE277D85B9008283FE /* GlobalVariables.swift */; };
+		0B5C9DF2277D8A01008283FE /* TableViewCellExtensionHighlightEffects.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5C9DF1277D8A01008283FE /* TableViewCellExtensionHighlightEffects.swift */; };
+		0B5C9DF4277D8A47008283FE /* GlobalFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5C9DF3277D8A47008283FE /* GlobalFunctions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +34,12 @@
 		0B5C9DD9277D7588008283FE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0B5C9DE2277D77C6008283FE /* WebService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebService.swift; sourceTree = "<group>"; };
 		0B5C9DE4277D7A12008283FE /* Country.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Country.swift; sourceTree = "<group>"; };
+		0B5C9DE8277D831D008283FE /* CountryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryTableViewCell.swift; sourceTree = "<group>"; };
+		0B5C9DE9277D831D008283FE /* CountryTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CountryTableViewCell.xib; sourceTree = "<group>"; };
+		0B5C9DEC277D8570008283FE /* UIVIewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIVIewExtensions.swift; sourceTree = "<group>"; };
+		0B5C9DEE277D85B9008283FE /* GlobalVariables.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalVariables.swift; sourceTree = "<group>"; };
+		0B5C9DF1277D8A01008283FE /* TableViewCellExtensionHighlightEffects.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCellExtensionHighlightEffects.swift; sourceTree = "<group>"; };
+		0B5C9DF3277D8A47008283FE /* GlobalFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalFunctions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +72,7 @@
 		0B5C9DCA277D7587008283FE /* Countries Selection App */ = {
 			isa = PBXGroup;
 			children = (
+				0B5C9DF0277D85C1008283FE /* NetworkLayer */,
 				0B5C9DE0277D7753008283FE /* Models */,
 				0B5C9DDF277D7741008283FE /* Helpers */,
 				0B5C9DE1277D7759008283FE /* Cells */,
@@ -77,7 +90,10 @@
 		0B5C9DDF277D7741008283FE /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
-				0B5C9DE2277D77C6008283FE /* WebService.swift */,
+				0B5C9DEE277D85B9008283FE /* GlobalVariables.swift */,
+				0B5C9DF3277D8A47008283FE /* GlobalFunctions.swift */,
+				0B5C9DEC277D8570008283FE /* UIVIewExtensions.swift */,
+				0B5C9DF1277D8A01008283FE /* TableViewCellExtensionHighlightEffects.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -93,8 +109,18 @@
 		0B5C9DE1277D7759008283FE /* Cells */ = {
 			isa = PBXGroup;
 			children = (
+				0B5C9DE8277D831D008283FE /* CountryTableViewCell.swift */,
+				0B5C9DE9277D831D008283FE /* CountryTableViewCell.xib */,
 			);
 			path = Cells;
+			sourceTree = "<group>";
+		};
+		0B5C9DF0277D85C1008283FE /* NetworkLayer */ = {
+			isa = PBXGroup;
+			children = (
+				0B5C9DE2277D77C6008283FE /* WebService.swift */,
+			);
+			path = NetworkLayer;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -155,6 +181,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0B5C9DEB277D831D008283FE /* CountryTableViewCell.xib in Resources */,
 				0B5C9DD8277D7588008283FE /* LaunchScreen.storyboard in Resources */,
 				0B5C9DD5277D7588008283FE /* Assets.xcassets in Resources */,
 				0B5C9DD3277D7587008283FE /* Main.storyboard in Resources */,
@@ -168,8 +195,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0B5C9DEA277D831D008283FE /* CountryTableViewCell.swift in Sources */,
+				0B5C9DED277D8570008283FE /* UIVIewExtensions.swift in Sources */,
+				0B5C9DF4277D8A47008283FE /* GlobalFunctions.swift in Sources */,
+				0B5C9DEF277D85B9008283FE /* GlobalVariables.swift in Sources */,
 				0B5C9DD0277D7587008283FE /* ViewController.swift in Sources */,
 				0B5C9DCC277D7587008283FE /* AppDelegate.swift in Sources */,
+				0B5C9DF2277D8A01008283FE /* TableViewCellExtensionHighlightEffects.swift in Sources */,
 				0B5C9DE3277D77C6008283FE /* WebService.swift in Sources */,
 				0B5C9DE5277D7A12008283FE /* Country.swift in Sources */,
 				0B5C9DCE277D7587008283FE /* SceneDelegate.swift in Sources */,
@@ -321,6 +353,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 63BQPADX5U;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Countries Selection App/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -349,6 +382,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 63BQPADX5U;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Countries Selection App/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;

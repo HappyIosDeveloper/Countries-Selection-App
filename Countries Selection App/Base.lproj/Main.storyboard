@@ -136,6 +136,7 @@
                         <outlet property="doneButton" destination="xVf-Iy-XG1" id="RCg-ah-HaM"/>
                         <outlet property="searchBar" destination="UqT-bS-lNs" id="gs6-It-AYf"/>
                         <outlet property="tableView" destination="7dC-PL-gzR" id="4nf-UY-GRu"/>
+                        <outlet property="tableViewBottomConstraint" destination="90M-R7-I7P" id="RwP-he-Fjp"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9yQ-s7-f0v" sceneMemberID="firstResponder"/>

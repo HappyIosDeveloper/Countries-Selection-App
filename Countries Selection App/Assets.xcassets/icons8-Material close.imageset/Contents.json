@@ -1,15 +1,17 @@
 {
   "images" : [
     {
+      "filename" : "icons8-Material Outlined-82771-23-ffffff.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "sad-ghost--v1.png",
+      "filename" : "icons8-Material Outlined-82771-50-ffffff-1.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
+      "filename" : "icons8-Material Outlined-82771-50-ffffff.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

@@ -15,6 +15,7 @@ class CountrySelectViewController: UIViewController {
     
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var tableViewBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var doneButton: UIButton!
     @IBAction func doneButtonAction(_ sender: Any) {
         doneButtonAction()
@@ -46,6 +47,7 @@ class CountrySelectViewController: UIViewController {
 extension CountrySelectViewController {
     
     func setupPage() {
+        setupNavigationController()
         setupTableView()
         reloadTableView()
         setupSearchBar()
@@ -54,10 +56,11 @@ extension CountrySelectViewController {
         getCountries()
     }
     
-    func setupDoneButton() {
-        doneButton.backgroundColor = .systemBlue
-        doneButton.setTitleColor(.white, for: .normal)
-        doneButton.roundUp(.large)
+    func setupNavigationController() {
+        navigationItem.title = "Select Countries"
+        let button = UIBarButtonItem(image: UIImage(named: "icons8-Material close"), style: .done, target: self, action: #selector(dismissPage))
+        button.tintColor = .darkGray
+        navigationItem.rightBarButtonItem = button
     }
     
     func setupSearchBar() {
@@ -70,6 +73,7 @@ extension CountrySelectViewController {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.separatorStyle = .none
+        tableView.keyboardDismissMode = .onDrag
         pullControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
         pullControl.addTarget(self, action: #selector(getCountries), for: .valueChanged)
         tableView.refreshControl = pullControl
@@ -79,6 +83,12 @@ extension CountrySelectViewController {
         indicator.style = .large
         indicator.hidesWhenStopped = true
         indicator.startAnimating()
+    }
+    
+    func setupDoneButton() {
+        doneButton.backgroundColor = .systemBlue
+        doneButton.setTitleColor(.white, for: .normal)
+        doneButton.roundUp(.large)
     }
     
     func reloadTableView() {
@@ -109,6 +119,10 @@ extension CountrySelectViewController {
             let finalCountries = (filteredCountries + countries).filter({$0.isSelected ?? false}).uniqued()
             delegate?.countriesDidUpdate(countries: finalCountries)
         }
+    }
+    
+    @objc func dismissPage() {
+        dismiss(animated: true)
     }
     
     func update(this country: Country, isFilteredList: Bool) {

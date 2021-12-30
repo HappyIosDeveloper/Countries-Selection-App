@@ -84,6 +84,7 @@
 				0B5C9DF7277DA53A008283FE /* CustomViews */,
 				0B5C9DE1277D7759008283FE /* Cells */,
 				0B5C9DCF277D7587008283FE /* ViewController.swift */,
+				0B5C9DF5277D8F36008283FE /* CountrySelectViewController.swift */,
 				0B5C9DD1277D7587008283FE /* Main.storyboard */,
 				0B5C9DD4277D7588008283FE /* Assets.xcassets */,
 				0B5C9DCB277D7587008283FE /* AppDelegate.swift */,
@@ -118,7 +119,6 @@
 			children = (
 				0B5C9DE8277D831D008283FE /* CountryTableViewCell.swift */,
 				0B5C9DE9277D831D008283FE /* CountryTableViewCell.xib */,
-				0B5C9DF5277D8F36008283FE /* CountrySelectViewController.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";

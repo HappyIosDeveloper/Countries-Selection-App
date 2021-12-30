@@ -41,6 +41,7 @@ extension ViewController {
     
     func setupNavigationController() {
         navigationItem.title = "Selected Countries"
+        navigationController?.navigationBar.prefersLargeTitles = true
     }
     
     func setupTableView() {
@@ -77,8 +78,9 @@ extension ViewController: CountrySelectViewControllerDelegate {
     
     func selectBttonAction() {
         let vc = storyboard?.instantiateViewController(withIdentifier: "CountrySelectViewController") as! CountrySelectViewController
+        let navBar = UINavigationController(rootViewController: vc)
         vc.delegate = self
-        present(vc, animated: true)
+        present(navBar, animated: true)
     }
 }
 

@@ -15,6 +15,7 @@ class ViewController: UIViewController {
         selectBttonAction()
     }
     
+    let noDataView: NoDataView = .instantiateFromNib()!
     var countries: [Country] = [] {
         didSet {
             reloadTableView()
@@ -35,6 +36,7 @@ extension ViewController {
         setupNavigationController()
         setupTableView()
         setupSelectButton()
+        reloadTableView()
     }
     
     func setupNavigationController() {
@@ -58,9 +60,9 @@ extension ViewController {
         DispatchQueue.main.async { [self] in
             tableView.reloadData()
             if countries.isEmpty {
-                
+                tableView.backgroundView = noDataView
             } else {
-                
+                tableView.backgroundView = nil
             }
         }
     }

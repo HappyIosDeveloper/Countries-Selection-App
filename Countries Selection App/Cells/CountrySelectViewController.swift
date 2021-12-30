@@ -21,12 +21,15 @@ class CountrySelectViewController: UIViewController {
     }
     
     weak var delegate: CountrySelectViewControllerDelegate?
-    var filteredCountries: [Country] = [] {
+    let noDataView: NoDataView = .instantiateFromNib()!
+    private var indicator = UIActivityIndicatorView()
+    private var pullControl = UIRefreshControl()
+    private var filteredCountries: [Country] = [] {
         didSet {
             reloadTableView()
         }
     }
-    var countries: [Country] = [] {
+    private var countries: [Country] = [] {
         didSet {
             reloadTableView()
         }
@@ -47,6 +50,7 @@ extension CountrySelectViewController {
         reloadTableView()
         setupSearchBar()
         setupDoneButton()
+        setupIndicator()
         getCountries()
     }
     
@@ -58,6 +62,7 @@ extension CountrySelectViewController {
     
     func setupSearchBar() {
         searchBar.delegate = self
+        searchBar.placeholder = "Search here..."
     }
     
     func setupTableView() {
@@ -65,15 +70,32 @@ extension CountrySelectViewController {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.separatorStyle = .none
+        pullControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
+        pullControl.addTarget(self, action: #selector(getCountries), for: .valueChanged)
+        tableView.refreshControl = pullControl
+    }
+    
+    func setupIndicator() {
+        indicator.style = .large
+        indicator.hidesWhenStopped = true
+        indicator.startAnimating()
     }
     
     func reloadTableView() {
         DispatchQueue.main.async { [self] in
             tableView.reloadData()
-            if countries.isEmpty {
-                
+            if filteredCountries.isEmpty && searchBar.text!.isEmpty {
+                if countries.isEmpty {
+                    tableView.backgroundView = noDataView
+                } else {
+                    tableView.backgroundView = nil
+                }
             } else {
-                
+                if filteredCountries.isEmpty {
+                    tableView.backgroundView = noDataView
+                } else {
+                    tableView.backgroundView = nil
+                }
             }
         }
     }
@@ -86,6 +108,22 @@ extension CountrySelectViewController {
         dismiss(animated: true) { [self] in
             let finalCountries = filteredCountries.isEmpty ? countries.filter({$0.isSelected ?? false}) : filteredCountries.filter({$0.isSelected ?? false})
             delegate?.countriesDidUpdate(countries: finalCountries)
+        }
+    }
+    
+    func update(this country: Country, isFilteredList: Bool) {
+        if isFilteredList {
+            for i in 0..<filteredCountries.count {
+                if filteredCountries[i].name.common == country.name.common {
+                    filteredCountries[i].isSelected = country.isSelected
+                }
+            }
+        } else {
+            for i in 0..<countries.count {
+                if countries[i].name.common == country.name.common {
+                    countries[i].isSelected = country.isSelected
+                }
+            }
         }
     }
 }
@@ -106,7 +144,7 @@ extension CountrySelectViewController: UISearchBarDelegate {
 extension CountrySelectViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return filteredCountries.isEmpty ? countries.count : filteredCountries.count
+        return (filteredCountries.isEmpty && searchBar.text!.isEmpty) ? countries.count : filteredCountries.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -122,8 +160,10 @@ extension CountrySelectViewController: UITableViewDelegate, UITableViewDataSourc
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if filteredCountries.isEmpty {
             countries[indexPath.row].isSelected?.toggle()
+            update(this: countries[indexPath.row], isFilteredList: true)
         } else {
             filteredCountries[indexPath.row].isSelected?.toggle()
+            update(this: filteredCountries[indexPath.row], isFilteredList: false)
         }
         DispatchQueue.main.async {
             tableView.reloadRows(at: [indexPath], with: .automatic)
@@ -134,13 +174,23 @@ extension CountrySelectViewController: UITableViewDelegate, UITableViewDataSourc
 // MARK: - API Calls
 extension CountrySelectViewController {
     
-    func getCountries() {
-        WebService.shared.getAllCountries { countries in
-            var countries = countries
-            for i in 0..<countries.count {
-                countries[i].isSelected = false
-            }
-            self.countries = countries
+    @objc func getCountries() {
+        DispatchQueue.main.async { [self] in
+            tableView.backgroundView = indicator
+        }
+        WebService.shared.getAllCountries { [weak self] countries in
+            self?.prepareCountriesForLoad(countries: countries)
+        }
+    }
+    
+    func prepareCountriesForLoad(countries: [Country]) {
+        var countries = countries
+        for i in 0..<countries.count {
+            countries[i].isSelected = false
+        }
+        self.countries = countries
+        DispatchQueue.main.async {
+            self.pullControl.endRefreshing()
         }
     }
 }

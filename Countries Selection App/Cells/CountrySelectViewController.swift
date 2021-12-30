@@ -106,7 +106,7 @@ extension CountrySelectViewController {
     
     func doneButtonAction() {
         dismiss(animated: true) { [self] in
-            let finalCountries = filteredCountries.isEmpty ? countries.filter({$0.isSelected ?? false}) : filteredCountries.filter({$0.isSelected ?? false})
+            let finalCountries = (filteredCountries + countries).filter({$0.isSelected ?? false}).uniqued()
             delegate?.countriesDidUpdate(countries: finalCountries)
         }
     }

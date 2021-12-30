@@ -25,7 +25,7 @@ class CountryTableViewCell: UITableViewCell {
         } else {
             countryNameLabel.text = country.name.official
         }
-        if country.isSelected ?? false {
+        if country.isSelected ?? false && highlightSelectedCells {
             parentView.layer.borderColor = UIColor.systemBlue.cgColor
             parentView.layer.borderWidth = 1.5
         } else {

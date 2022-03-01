@@ -7,15 +7,19 @@
 
 import Foundation
 
+enum RequestError: Error {
+    case parse
+    case wrongResponse
+    case unknown
+}
+
 class WebService {
     
     static let shared = WebService()
     
-    func getAllCountries(comple: @escaping ([Country])->()) {
+    func getAllCountries(comple: @escaping (Result<[Country], Error>)->()) {
         let url = URL(string: "https://restcountries.com/v3.1/all")!
-        getRequest(url: url, responseType: [Country].self, comple: { data in
-            comple(data ?? [])
-        })
+        getRequest(url: url, responseType: [Country].self, comple: comple)
     }
 }
 
@@ -23,20 +27,20 @@ class WebService {
 extension WebService {
     
     /// Use this function to get all the simple get request calls
-    private func getRequest<T:Decodable>(url: URL, responseType: T.Type, comple: @escaping (T?)->()) {
+    private func getRequest<T:Decodable>(url: URL, responseType: T.Type, comple: @escaping (Result<T, Error>)->()) {
         URLSession.shared.dataTask(with: url, completionHandler: { (data, response, error) in
             guard let data = data else { return }
             if error == nil {
                 do {
                     let parsedResponse = try JSONDecoder().decode(responseType.self , from: data)
-                    comple(parsedResponse)
+                    comple(.success(parsedResponse))
                 } catch {
                     print("WebService getRequest error 1: " + error.localizedDescription)
-                    comple(nil)
+                    comple(.failure(RequestError.parse))
                 }
             } else {
                 print("WebService getRequest error 2: " + error.debugDescription)
-                comple(nil)
+                comple(.failure(RequestError.wrongResponse))
             }
         }).resume()
     }

@@ -110,13 +110,17 @@ extension CountrySelectViewController {
         }
     }
     
-    func handleBandInternetConnectionMessage() {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 5) { [self] in
-            if countries.isEmpty {
-                if let label = self.tableView.backgroundView?.subviews(ofType: UILabel.self).first {
-                    label.text = "Bad Interner Connection!"
-                }
+    func showNoResultIfReuqied() {
+        if countries.isEmpty {
+            if let label = self.tableView.backgroundView?.subviews(ofType: UILabel.self).first {
+                label.text = "No Result :("
             }
+        }
+    }
+    
+    func showNetworkError() {
+        if let label = self.tableView.backgroundView?.subviews(ofType: UILabel.self).first {
+            label.text = "Network Error :("
         }
     }
 }
@@ -201,10 +205,14 @@ extension CountrySelectViewController {
     @objc func getCountries() {
         DispatchQueue.main.async { [self] in
             tableView.backgroundView = indicator
-            handleBandInternetConnectionMessage()
         }
-        WebService.shared.getAllCountries { [weak self] countries in
-            self?.prepareCountriesForLoad(countries: countries)
+        WebService.shared.getAllCountries { [weak self] res in
+            switch res {
+            case .success(let countries):
+                self?.prepareCountriesForLoad(countries: countries)
+            case .failure:
+                self?.showNetworkError()
+            }
         }
     }
     
@@ -214,8 +222,9 @@ extension CountrySelectViewController {
             countries[i].isSelected = false
         }
         self.countries = countries
-        DispatchQueue.main.async {
-            self.pullControl.endRefreshing()
+        DispatchQueue.main.async { [self] in
+            pullControl.endRefreshing()
+            showNoResultIfReuqied()
         }
     }
 }

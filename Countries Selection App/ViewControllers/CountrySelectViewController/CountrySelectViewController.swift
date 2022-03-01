@@ -26,16 +26,6 @@ class CountrySelectViewController: UIViewController {
     private var viewModel: CountrySelectViewModel!
     private var indicator = UIActivityIndicatorView()
     private var pullControl = UIRefreshControl()
-    private var filteredCountries: [Country] = [] {
-        didSet {
-            reloadTableView()
-        }
-    }
-    private var countries: [Country] = [] {
-        didSet {
-            reloadTableView()
-        }
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -57,12 +47,10 @@ extension CountrySelectViewController {
         setupIndicator()
     }
     
-    @objc func bindViewModel() {
+    func bindViewModel() {
         viewModel = CountrySelectViewModel(
-            updateCoutries: { [unowned self] countries in
-                self.countries = countries
-            }, updateFiltredCoutries: { [unowned self] countries in
-                self.filteredCountries = filteredCountries
+            reloadTableView: { [unowned self] in
+                reloadTableView()
             }, showIndicator: { [unowned self] in
                 tableView.backgroundView = indicator
             }, showNetworkError: { [unowned self] in
@@ -92,7 +80,7 @@ extension CountrySelectViewController {
         tableView.separatorStyle = .none
         tableView.keyboardDismissMode = .onDrag
         pullControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
-        pullControl.addTarget(self, action: #selector(bindViewModel), for: .valueChanged)
+        pullControl.addTarget(self, action: #selector(getData), for: .valueChanged)
         tableView.refreshControl = pullControl
     }
     
@@ -108,17 +96,21 @@ extension CountrySelectViewController {
         doneButton.roundUp(.large)
     }
     
+    @objc func getData() {
+        viewModel.getCountries()
+    }
+    
     func reloadTableView() {
         DispatchQueue.main.async { [self] in
             tableView.reloadData()
-            if filteredCountries.isEmpty && searchBar.text!.isEmpty {
-                if countries.isEmpty {
+            if viewModel.filteredCountries.isEmpty && searchBar.text!.isEmpty {
+                if viewModel.countries.isEmpty {
                     tableView.backgroundView = noDataView
                 } else {
                     tableView.backgroundView = nil
                 }
             } else {
-                if filteredCountries.isEmpty {
+                if viewModel.filteredCountries.isEmpty {
                     tableView.backgroundView = noDataView
                 } else {
                     tableView.backgroundView = nil
@@ -128,7 +120,7 @@ extension CountrySelectViewController {
     }
     
     func showNoResultIfReuqied() {
-        if countries.isEmpty {
+        if viewModel.countries.isEmpty {
             if let label = self.tableView.backgroundView?.subviews(ofType: UILabel.self).first {
                 label.text = "No Result :("
             }
@@ -147,7 +139,7 @@ extension CountrySelectViewController {
     
     func doneButtonAction() {
         dismiss(animated: true) { [self] in
-            let finalCountries = (filteredCountries + countries).filter({$0.isSelected ?? false}).uniqued()
+            let finalCountries = (viewModel.filteredCountries + viewModel.countries).filter({$0.isSelected ?? false}).uniqued()
             delegate?.countriesDidUpdate(countries: finalCountries)
         }
     }
@@ -161,7 +153,7 @@ extension CountrySelectViewController {
 extension CountrySelectViewController: UISearchBarDelegate {
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        filteredCountries = countries.filter({($0.name.official ?? "").lowercased().contains(searchText) || ($0.name.common ?? "").lowercased().contains(searchText.lowercased())})
+        viewModel.filteredCountries = viewModel.countries.filter({($0.name.official ?? "").lowercased().contains(searchText) || ($0.name.common ?? "").lowercased().contains(searchText.lowercased())})
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
@@ -173,12 +165,12 @@ extension CountrySelectViewController: UISearchBarDelegate {
 extension CountrySelectViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return (filteredCountries.isEmpty && searchBar.text!.isEmpty) ? countries.count : filteredCountries.count
+        return viewModel.getTableCount(isSearchBarTextEmpty: searchBar.text!.isEmpty)
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CountryTableViewCell") as! CountryTableViewCell
-        cell.fill(width: filteredCountries.isEmpty ? countries[indexPath.row] : filteredCountries[indexPath.row], highlightSelectedCells: true)
+        cell.fill(width: viewModel.getCellCountry(indexPath: indexPath), highlightSelectedCells: true)
         return cell
     }
     
@@ -187,13 +179,7 @@ extension CountrySelectViewController: UITableViewDelegate, UITableViewDataSourc
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if filteredCountries.isEmpty {
-            countries[indexPath.row].isSelected?.toggle()
-            viewModel.update(this: countries[indexPath.row], isFilteredList: true)
-        } else {
-            filteredCountries[indexPath.row].isSelected?.toggle()
-            viewModel.update(this: filteredCountries[indexPath.row], isFilteredList: false)
-        }
+        viewModel.didSelect(at: indexPath)
         DispatchQueue.main.async {
             tableView.reloadRows(at: [indexPath], with: .automatic)
         }

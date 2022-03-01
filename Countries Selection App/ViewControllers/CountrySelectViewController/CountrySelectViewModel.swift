@@ -11,23 +11,21 @@ class CountrySelectViewModel {
     
     var stopRefresh: ()->()
     var showIndicator: ()->()
+    var reloadTableView: ()-> ()
     var showNetworkError: ()->()
-    var updateCoutries: ([Country])-> ()
-    var updateFiltredCoutries: ([Country])-> ()
-    private var filteredCountries: [Country] = [] {
+    var filteredCountries: [Country] = [] {
         didSet {
-            updateFiltredCoutries(filteredCountries)
+            reloadTableView()
         }
     }
-    private var countries: [Country] = [] {
+    var countries: [Country] = [] {
         didSet {
-            updateCoutries(countries)
+            reloadTableView()
         }
     }
 
-    init(updateCoutries: @escaping ([Country])->(), updateFiltredCoutries: @escaping ([Country])->(), showIndicator: @escaping ()->(), showNetworkError: @escaping ()->(), stopRefresh: @escaping ()->()) {
-        self.updateCoutries = updateCoutries
-        self.updateFiltredCoutries = updateFiltredCoutries
+    init(reloadTableView: @escaping ()->(), showIndicator: @escaping ()->(), showNetworkError: @escaping ()->(), stopRefresh: @escaping ()->()) {
+        self.reloadTableView = reloadTableView
         self.showIndicator = showIndicator
         self.showNetworkError = showNetworkError
         self.stopRefresh = stopRefresh
@@ -55,10 +53,32 @@ extension CountrySelectViewModel {
     }
 }
 
+// MARK: - TableView Functions
+extension CountrySelectViewModel {
+    
+    func getTableCount(isSearchBarTextEmpty: Bool)-> Int {
+        return (filteredCountries.isEmpty && isSearchBarTextEmpty) ? countries.count : filteredCountries.count
+    }
+    
+    func getCellCountry(indexPath: IndexPath)-> Country {
+        return filteredCountries.isEmpty ? countries[indexPath.row] : filteredCountries[indexPath.row]
+    }
+    
+    func didSelect(at indexPath: IndexPath) {
+        if filteredCountries.isEmpty {
+            countries[indexPath.row].isSelected?.toggle()
+            update(this: countries[indexPath.row], isFilteredList: true)
+        } else {
+            filteredCountries[indexPath.row].isSelected?.toggle()
+            update(this: filteredCountries[indexPath.row], isFilteredList: false)
+        }
+    }
+}
+
 // MARK: - API Calls
 extension CountrySelectViewModel {
     
-    @objc func getCountries() {
+    func getCountries() {
         DispatchQueue.main.async { [self] in
             showIndicator()
         }

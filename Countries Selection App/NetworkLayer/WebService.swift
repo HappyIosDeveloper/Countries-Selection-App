@@ -8,7 +8,7 @@
 import Foundation
 
 enum RequestError: Error {
-    case parse
+    case parsingIssue
     case wrongResponse
     case unknown
 }
@@ -32,11 +32,11 @@ extension WebService {
             guard let data = data else { return }
             if error == nil {
                 do {
-                    let parsedResponse = try JSONDecoder().decode(responseType.self , from: data)
+                    let parsedResponse = try JSONDecoder().decode(responseType.self, from: data)
                     comple(.success(parsedResponse))
                 } catch {
                     print("WebService getRequest error 1: " + error.localizedDescription)
-                    comple(.failure(RequestError.parse))
+                    comple(.failure(RequestError.parsingIssue))
                 }
             } else {
                 print("WebService getRequest error 2: " + error.debugDescription)

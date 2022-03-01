@@ -21,8 +21,8 @@ class CountrySelectViewController: UIViewController {
         doneButtonAction()
     }
     
-    weak var delegate: CountrySelectViewControllerDelegate?
     let noDataView: NoDataView = .instantiateFromNib()!
+    weak var delegate: CountrySelectViewControllerDelegate?
     private var indicator = UIActivityIndicatorView()
     private var pullControl = UIRefreshControl()
     private var filteredCountries: [Country] = [] {

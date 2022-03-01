@@ -23,6 +23,7 @@ class CountrySelectViewController: UIViewController {
     
     let noDataView: NoDataView = .instantiateFromNib()!
     weak var delegate: CountrySelectViewControllerDelegate?
+    private var viewModel: CountrySelectViewModel!
     private var indicator = UIActivityIndicatorView()
     private var pullControl = UIRefreshControl()
     private var filteredCountries: [Country] = [] {
@@ -40,6 +41,7 @@ class CountrySelectViewController: UIViewController {
         super.viewDidLoad()
         
         setupPage()
+        bindViewModel()
     }
 }
 
@@ -53,7 +55,22 @@ extension CountrySelectViewController {
         setupSearchBar()
         setupDoneButton()
         setupIndicator()
-        getCountries()
+    }
+    
+    @objc func bindViewModel() {
+        viewModel = CountrySelectViewModel(
+            updateCoutries: { [unowned self] countries in
+                self.countries = countries
+            }, updateFiltredCoutries: { [unowned self] countries in
+                self.filteredCountries = filteredCountries
+            }, showIndicator: { [unowned self] in
+                tableView.backgroundView = indicator
+            }, showNetworkError: { [unowned self] in
+                showNetworkError()
+            }, stopRefresh: { [unowned self] in
+                pullControl.endRefreshing()
+                showNoResultIfReuqied()
+            })
     }
     
     func setupNavigationController() {
@@ -75,7 +92,7 @@ extension CountrySelectViewController {
         tableView.separatorStyle = .none
         tableView.keyboardDismissMode = .onDrag
         pullControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
-        pullControl.addTarget(self, action: #selector(getCountries), for: .valueChanged)
+        pullControl.addTarget(self, action: #selector(bindViewModel), for: .valueChanged)
         tableView.refreshControl = pullControl
     }
     
@@ -138,29 +155,13 @@ extension CountrySelectViewController {
     @objc func dismissPage() {
         dismiss(animated: true)
     }
-    
-    func update(this country: Country, isFilteredList: Bool) {
-        if isFilteredList {
-            for i in 0..<filteredCountries.count {
-                if filteredCountries[i].name.common == country.name.common {
-                    filteredCountries[i].isSelected = country.isSelected
-                }
-            }
-        } else {
-            for i in 0..<countries.count {
-                if countries[i].name.common == country.name.common {
-                    countries[i].isSelected = country.isSelected
-                }
-            }
-        }
-    }
 }
 
 // MARK: - Search Bar Fuctions
 extension CountrySelectViewController: UISearchBarDelegate {
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        filteredCountries = countries.filter({($0.name.official ?? "").contains(searchText) || ($0.name.common ?? "").contains(searchText)})
+        filteredCountries = countries.filter({($0.name.official ?? "").lowercased().contains(searchText) || ($0.name.common ?? "").lowercased().contains(searchText.lowercased())})
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
@@ -188,43 +189,13 @@ extension CountrySelectViewController: UITableViewDelegate, UITableViewDataSourc
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if filteredCountries.isEmpty {
             countries[indexPath.row].isSelected?.toggle()
-            update(this: countries[indexPath.row], isFilteredList: true)
+            viewModel.update(this: countries[indexPath.row], isFilteredList: true)
         } else {
             filteredCountries[indexPath.row].isSelected?.toggle()
-            update(this: filteredCountries[indexPath.row], isFilteredList: false)
+            viewModel.update(this: filteredCountries[indexPath.row], isFilteredList: false)
         }
         DispatchQueue.main.async {
             tableView.reloadRows(at: [indexPath], with: .automatic)
-        }
-    }
-}
-
-// MARK: - API Calls
-extension CountrySelectViewController {
-    
-    @objc func getCountries() {
-        DispatchQueue.main.async { [self] in
-            tableView.backgroundView = indicator
-        }
-        WebService.shared.getAllCountries { [weak self] res in
-            switch res {
-            case .success(let countries):
-                self?.prepareCountriesForLoad(countries: countries)
-            case .failure:
-                self?.showNetworkError()
-            }
-        }
-    }
-    
-    func prepareCountriesForLoad(countries: [Country]) {
-        var countries = countries
-        for i in 0..<countries.count {
-            countries[i].isSelected = false
-        }
-        self.countries = countries
-        DispatchQueue.main.async { [self] in
-            pullControl.endRefreshing()
-            showNoResultIfReuqied()
         }
     }
 }

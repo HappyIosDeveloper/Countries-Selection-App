@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 class CountrySelectViewModel {
     
@@ -13,17 +14,12 @@ class CountrySelectViewModel {
     var showIndicator: ()->()
     var reloadTableView: ()-> ()
     var showNetworkError: ()->()
-    var filteredCountries: [Country] = [] {
-        didSet {
-            reloadTableView()
-        }
-    }
     var countries: [Country] = [] {
         didSet {
             reloadTableView()
         }
     }
-
+    
     init(reloadTableView: @escaping ()->(), showIndicator: @escaping ()->(), showNetworkError: @escaping ()->(), stopRefresh: @escaping ()->()) {
         self.reloadTableView = reloadTableView
         self.showIndicator = showIndicator
@@ -36,17 +32,17 @@ class CountrySelectViewModel {
 // MARK: - General Actions
 extension CountrySelectViewModel {
     
-    func update(this country: Country, isFilteredList: Bool) {
-        if isFilteredList {
-            for i in 0..<filteredCountries.count {
-                if filteredCountries[i].name.common == country.name.common {
-                    filteredCountries[i].isSelected = country.isSelected
-                }
+    func search(with text: String) {
+        if text.isEmpty {
+            for i in 0..<countries.count {
+                countries[i].isVisible = true
             }
         } else {
             for i in 0..<countries.count {
-                if countries[i].name.common == country.name.common {
-                    countries[i].isSelected = country.isSelected
+                if (countries[i].name.official ?? "").lowercased().contains(text) || (countries[i].name.common ?? "").lowercased().contains(text.lowercased()) {
+                    countries[i].isVisible = true
+                } else {
+                    countries[i].isVisible = false
                 }
             }
         }
@@ -56,21 +52,20 @@ extension CountrySelectViewModel {
 // MARK: - TableView Functions
 extension CountrySelectViewModel {
     
-    func getTableCount(isSearchBarTextEmpty: Bool)-> Int {
-        return (filteredCountries.isEmpty && isSearchBarTextEmpty) ? countries.count : filteredCountries.count
+    func getTableCount()-> Int {
+        return countries.filter({$0.isVisible ?? false}).count
     }
     
     func getCellCountry(indexPath: IndexPath)-> Country {
-        return filteredCountries.isEmpty ? countries[indexPath.row] : filteredCountries[indexPath.row]
+        return countries.filter({$0.isVisible ?? false})[indexPath.row]
     }
     
     func didSelect(at indexPath: IndexPath) {
-        if filteredCountries.isEmpty {
-            countries[indexPath.row].isSelected?.toggle()
-            update(this: countries[indexPath.row], isFilteredList: true)
-        } else {
-            filteredCountries[indexPath.row].isSelected?.toggle()
-            update(this: filteredCountries[indexPath.row], isFilteredList: false)
+        for i in 0..<countries.count {
+            if countries[i].name.common == countries.filter({$0.isVisible ?? false})[indexPath.row].name.common {
+                countries[i].isSelected?.toggle()
+                break
+            }
         }
     }
 }
@@ -96,6 +91,7 @@ extension CountrySelectViewModel {
         var countries = countries
         for i in 0..<countries.count {
             countries[i].isSelected = false
+            countries[i].isVisible = true
         }
         self.countries = countries
         DispatchQueue.main.async { [self] in

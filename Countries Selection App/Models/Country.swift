@@ -13,7 +13,8 @@ struct Country: Codable, Hashable {
     var flag: String?
     var population: Int?
     var isSelected: Bool?
-    
+    var isVisible: Bool?
+
     static func == (lhs: Country, rhs: Country) -> Bool {
         return lhs.name.common == rhs.name.common
     }

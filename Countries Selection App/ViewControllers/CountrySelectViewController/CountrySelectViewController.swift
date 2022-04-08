@@ -103,14 +103,8 @@ extension CountrySelectViewController {
     func reloadTableView() {
         DispatchQueue.main.async { [self] in
             tableView.reloadData()
-            if viewModel.filteredCountries.isEmpty && searchBar.text!.isEmpty {
-                if viewModel.countries.isEmpty {
-                    tableView.backgroundView = noDataView
-                } else {
-                    tableView.backgroundView = nil
-                }
-            } else {
-                if viewModel.filteredCountries.isEmpty {
+            if searchBar.text!.isEmpty {
+                if viewModel.countries.filter({$0.isVisible ?? false}).isEmpty {
                     tableView.backgroundView = noDataView
                 } else {
                     tableView.backgroundView = nil
@@ -139,11 +133,14 @@ extension CountrySelectViewController {
     
     func doneButtonAction() {
         dismiss(animated: true) { [self] in
-            let finalCountries = (viewModel.filteredCountries + viewModel.countries).filter({$0.isSelected ?? false}).uniqued()
+            for i in 0..<viewModel.countries.count {
+                viewModel.countries[i].isVisible = viewModel.countries[i].isSelected
+            }
+            let finalCountries = viewModel.countries.filter({$0.isSelected ?? false})
             delegate?.countriesDidUpdate(countries: finalCountries)
         }
     }
-    
+
     @objc func dismissPage() {
         dismiss(animated: true)
     }
@@ -153,7 +150,7 @@ extension CountrySelectViewController {
 extension CountrySelectViewController: UISearchBarDelegate {
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        viewModel.filteredCountries = viewModel.countries.filter({($0.name.official ?? "").lowercased().contains(searchText) || ($0.name.common ?? "").lowercased().contains(searchText.lowercased())})
+        viewModel.search(with: searchText)
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
@@ -165,7 +162,7 @@ extension CountrySelectViewController: UISearchBarDelegate {
 extension CountrySelectViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel.getTableCount(isSearchBarTextEmpty: searchBar.text!.isEmpty)
+        return viewModel.getTableCount()
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

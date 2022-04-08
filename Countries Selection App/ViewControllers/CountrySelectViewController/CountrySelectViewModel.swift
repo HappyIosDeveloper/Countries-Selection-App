@@ -20,12 +20,14 @@ class CountrySelectViewModel {
         }
     }
     
-    init(reloadTableView: @escaping ()->(), showIndicator: @escaping ()->(), showNetworkError: @escaping ()->(), stopRefresh: @escaping ()->()) {
+    init(reloadTableView: @escaping ()->(), showIndicator: @escaping ()->(), showNetworkError: @escaping ()->(), stopRefresh: @escaping ()->(), loadData: Bool = true) {
         self.reloadTableView = reloadTableView
         self.showIndicator = showIndicator
         self.showNetworkError = showNetworkError
         self.stopRefresh = stopRefresh
-        getCountries()
+        if loadData {
+            getCountries()
+        }
     }
 }
 

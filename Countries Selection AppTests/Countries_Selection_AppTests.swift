@@ -42,11 +42,12 @@ extension Countries_Selection_AppTests {
         vc.view.layoutIfNeeded()
         XCTAssertNotNil(vc.tableView.delegate)
         XCTAssertNotNil(vc.tableView.dataSource)
-        let vm = CountrySelectViewModel {
-        } showIndicator: {
-        } showNetworkError: {
-        } stopRefresh: {
-        }
+        let vm = CountrySelectViewModel(
+        reloadTableView: {},
+        showIndicator: {},
+        showNetworkError: {},
+        stopRefresh: {},
+        loadData: false)
         XCTAssertEqual(vc.tableView.numberOfRows(inSection: 0), vm.countries.count)
     }
     
@@ -68,11 +69,12 @@ extension Countries_Selection_AppTests {
     }
     
     func test_csvc_searchFunctionality() {
-        let vm = CountrySelectViewModel {
-        } showIndicator: {
-        } showNetworkError: {
-        } stopRefresh: {
-        }
+        let vm = CountrySelectViewModel(
+        reloadTableView: {},
+        showIndicator: {},
+        showNetworkError: {},
+        stopRefresh: {},
+        loadData: false)
         vm.countries = [Country(name: CountryName(common: "Iran", official: "Iran")),
                         Country(name: CountryName(common: "USA", official: "USA")),
                         Country(name: CountryName(common: "Iraq", official: "Iraq"))]

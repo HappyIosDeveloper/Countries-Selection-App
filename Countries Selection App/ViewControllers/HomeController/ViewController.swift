@@ -16,16 +16,15 @@ class ViewController: UIViewController {
     }
     
     let noDataView: NoDataView = .instantiateFromNib()!
-    var countries: [Country] = [] {
-        didSet {
-            reloadTableView()
-        }
-    }
+    let viewModel = ViewControllerViewModel()
 
     override func viewDidLoad() {
         super.viewDidLoad()
      
         setupPage()
+        viewModel.setup { [weak self] in
+            self?.reloadTableView()
+        }
     }
 }
 
@@ -60,7 +59,7 @@ extension ViewController {
     func reloadTableView() {
         DispatchQueue.main.async { [self] in
             tableView.reloadData()
-            if countries.isEmpty {
+            if viewModel.countries.isEmpty {
                 tableView.backgroundView = noDataView
             } else {
                 tableView.backgroundView = nil
@@ -73,7 +72,7 @@ extension ViewController {
 extension ViewController: CountrySelectViewControllerDelegate {
     
     func countriesDidUpdate(countries: [Country]) {
-        self.countries = countries
+        viewModel.countries = countries
     }
     
     func selectBttonAction() {
@@ -88,12 +87,12 @@ extension ViewController: CountrySelectViewControllerDelegate {
 extension ViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return countries.count
+        return viewModel.countries.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CountryTableViewCell") as! CountryTableViewCell
-        cell.fill(width: countries[indexPath.row], highlightSelectedCells: false)
+        cell.fill(width: viewModel.countries[indexPath.row], highlightSelectedCells: false)
         return cell
     }
     

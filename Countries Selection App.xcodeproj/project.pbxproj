@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0B15A605277DB5AC003875BB /* GeneralExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B15A604277DB5AC003875BB /* GeneralExtensions.swift */; };
+		0B2C56E828097A7600075765 /* ViewControllerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B2C56E728097A7600075765 /* ViewControllerViewModel.swift */; };
 		0B51D51F2800546700A11D68 /* Countries_Selection_AppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B51D51E2800546700A11D68 /* Countries_Selection_AppTests.swift */; };
 		0B5C9DCC277D7587008283FE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5C9DCB277D7587008283FE /* AppDelegate.swift */; };
 		0B5C9DCE277D7587008283FE /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5C9DCD277D7587008283FE /* SceneDelegate.swift */; };
@@ -41,6 +42,7 @@
 
 /* Begin PBXFileReference section */
 		0B15A604277DB5AC003875BB /* GeneralExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralExtensions.swift; sourceTree = "<group>"; };
+		0B2C56E728097A7600075765 /* ViewControllerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerViewModel.swift; sourceTree = "<group>"; };
 		0B51D51C2800546700A11D68 /* Countries Selection AppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Countries Selection AppTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0B51D51E2800546700A11D68 /* Countries_Selection_AppTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Countries_Selection_AppTests.swift; sourceTree = "<group>"; };
 		0B5C9DC8277D7587008283FE /* Countries Selection App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Countries Selection App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -187,6 +189,7 @@
 			isa = PBXGroup;
 			children = (
 				0B5C9DCF277D7587008283FE /* ViewController.swift */,
+				0B2C56E728097A7600075765 /* ViewControllerViewModel.swift */,
 			);
 			path = HomeController;
 			sourceTree = "<group>";
@@ -318,6 +321,7 @@
 				0B15A605277DB5AC003875BB /* GeneralExtensions.swift in Sources */,
 				0B5C9DEF277D85B9008283FE /* GlobalVariables.swift in Sources */,
 				0B5C9DD0277D7587008283FE /* ViewController.swift in Sources */,
+				0B2C56E828097A7600075765 /* ViewControllerViewModel.swift in Sources */,
 				0B686CFA27CE8B2600D61745 /* CountrySelectViewModel.swift in Sources */,
 				0B5C9DCC277D7587008283FE /* AppDelegate.swift in Sources */,
 				0B5C9DF6277D8F36008283FE /* CountrySelectViewController.swift in Sources */,

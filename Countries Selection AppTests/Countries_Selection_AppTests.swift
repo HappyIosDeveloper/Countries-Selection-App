@@ -23,7 +23,7 @@ class Countries_Selection_AppTests: XCTestCase {
         vc.view.layoutIfNeeded()
         XCTAssertNotNil(vc.tableView.delegate)
         XCTAssertNotNil(vc.tableView.dataSource)
-        XCTAssertEqual(vc.tableView.numberOfRows(inSection: 0), vc.countries.count)
+        XCTAssertEqual(vc.tableView.numberOfRows(inSection: 0), vc.viewModel.countries.count)
     }
 }
 

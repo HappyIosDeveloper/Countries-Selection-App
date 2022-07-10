@@ -21,6 +21,7 @@ class ViewControllerViewModel {
     }
 }
 
+// MARK: - Actions
 extension ViewControllerViewModel: CountrySelectViewControllerDelegate {
     
     func countriesDidUpdate(countries: [Country]) {

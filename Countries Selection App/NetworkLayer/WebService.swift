@@ -7,14 +7,14 @@
 
 import Foundation
 
-enum RequestError: Error {
-    case parsingIssue
-    case wrongResponse
-    case unknown
-}
-
 class WebService {
     
+    enum RequestError: Error {
+        case parsingIssue
+        case wrongResponse
+        case unknown
+    }
+
     static let shared = WebService()
     
     func getAllCountries(comple: @escaping (Result<[Country], Error>)->()) {
@@ -23,7 +23,7 @@ class WebService {
     }
 }
 
-// MARK: - Base API Call Functions
+// MARK: - Base API Call Function
 extension WebService {
     
     /// Use this function to get all the simple get request calls

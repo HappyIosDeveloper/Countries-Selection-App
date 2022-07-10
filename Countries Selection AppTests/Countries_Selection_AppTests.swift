@@ -51,23 +51,6 @@ extension Countries_Selection_AppTests {
         XCTAssertEqual(vc.tableView.numberOfRows(inSection: 0), vm.countries.count)
     }
     
-    func test_csvc_gettingData() {
-        let exp = expectation(description: "getting data")
-        var countries:[Country] = []
-        WebService.shared.getAllCountries { response in
-            switch response {
-            case .failure(_):
-                exp.fulfill()
-            case .success(let apiCountries):
-                countries = apiCountries
-                exp.fulfill()
-            }
-        }
-        waitForExpectations(timeout: 5) { _ in
-            XCTAssertFalse(countries.isEmpty)
-        }
-    }
-    
     func test_csvc_searchFunctionality() {
         let vm = CountrySelectViewModel(
         reloadTableView: {},

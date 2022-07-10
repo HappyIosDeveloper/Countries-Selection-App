@@ -20,3 +20,10 @@ class ViewControllerViewModel {
         self.reloadTableView = reloadTableView
     }
 }
+
+extension ViewControllerViewModel: CountrySelectViewControllerDelegate {
+    
+    func countriesDidUpdate(countries: [Country]) {
+        self.countries = countries
+    }
+}

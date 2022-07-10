@@ -12,7 +12,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var selectButton: UIButton!
     @IBAction func selectButtonAction(_ sender: Any) {
-        selectBttonAction()
+        showCountrySelectViewController()
     }
     
     let noDataView: NoDataView = .instantiateFromNib()!
@@ -69,16 +69,12 @@ extension ViewController {
 }
 
 // MARK: - Actions
-extension ViewController: CountrySelectViewControllerDelegate {
+extension ViewController {
     
-    func countriesDidUpdate(countries: [Country]) {
-        viewModel.countries = countries
-    }
-    
-    func selectBttonAction() {
+    func showCountrySelectViewController() {
         let vc = storyboard?.instantiateViewController(withIdentifier: "CountrySelectViewController") as! CountrySelectViewController
         let navBar = UINavigationController(rootViewController: vc)
-        vc.delegate = self
+        vc.delegate = viewModel
         present(navBar, animated: true)
     }
 }

@@ -9,10 +9,12 @@ import Foundation
 
 class WebService {
     
-    enum RequestError: Error { case parsingIssue, wrongResponse, unknown }
+    enum RequestError: Error { case parsingIssue, wrongResponse, unknown, repositoryIssue }
     enum HTTPMethod: String { case get, post, put }
 
     static let shared = WebService()
+    
+    private init () {}
     
     func getAllCountries(comple: @escaping (Result<[Country], RequestError>)->()) {
         let url = URL(string: "https://restcountries.com/v3.1/all")!

@@ -49,15 +49,15 @@ extension CountrySelectViewController {
     
     func bindViewModel() {
         viewModel = CountrySelectViewModel(
-            reloadTableView: { [unowned self] in
-                reloadTableView()
-            }, showIndicator: { [unowned self] in
-                tableView.backgroundView = indicator
-            }, showNetworkError: { [unowned self] in
-                showNetworkError()
-            }, stopRefresh: { [unowned self] in
-                pullControl.endRefreshing()
-                showNoResultIfReuqied()
+            reloadTableView: { [weak self] in
+                self?.reloadTableView()
+            }, showIndicator: { [weak self] in
+                self?.tableView.backgroundView = self?.indicator
+            }, showNetworkError: { [weak self] in
+                self?.showNetworkError()
+            }, stopRefresh: { [weak self] in
+                self?.pullControl.endRefreshing()
+                self?.showNoResultIfReuqied()
             })
     }
     

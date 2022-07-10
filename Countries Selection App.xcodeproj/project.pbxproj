@@ -28,6 +28,7 @@
 		0B5C9DF9277DA574008283FE /* NoDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5C9DF8277DA574008283FE /* NoDataView.swift */; };
 		0B5C9DFB277DA57F008283FE /* NoDataView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0B5C9DFA277DA57F008283FE /* NoDataView.xib */; };
 		0B686CFA27CE8B2600D61745 /* CountrySelectViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B686CF927CE8B2600D61745 /* CountrySelectViewModel.swift */; };
+		0B8FFA03287B43B300DA3903 /* Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B8FFA02287B43B300DA3903 /* Repository.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,6 +66,7 @@
 		0B5C9DF8277DA574008283FE /* NoDataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoDataView.swift; sourceTree = "<group>"; };
 		0B5C9DFA277DA57F008283FE /* NoDataView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NoDataView.xib; sourceTree = "<group>"; };
 		0B686CF927CE8B2600D61745 /* CountrySelectViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountrySelectViewModel.swift; sourceTree = "<group>"; };
+		0B8FFA02287B43B300DA3903 /* Repository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Repository.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -171,6 +173,7 @@
 		0B5C9DF0277D85C1008283FE /* NetworkLayer */ = {
 			isa = PBXGroup;
 			children = (
+				0B8FFA02287B43B300DA3903 /* Repository.swift */,
 				0B5C9DE2277D77C6008283FE /* WebService.swift */,
 			);
 			path = NetworkLayer;
@@ -325,6 +328,7 @@
 				0B686CFA27CE8B2600D61745 /* CountrySelectViewModel.swift in Sources */,
 				0B5C9DCC277D7587008283FE /* AppDelegate.swift in Sources */,
 				0B5C9DF6277D8F36008283FE /* CountrySelectViewController.swift in Sources */,
+				0B8FFA03287B43B300DA3903 /* Repository.swift in Sources */,
 				0B5C9DF2277D8A01008283FE /* TableViewCellExtensionHighlightEffects.swift in Sources */,
 				0B5C9DE3277D77C6008283FE /* WebService.swift in Sources */,
 				0B5C9DE5277D7A12008283FE /* Country.swift in Sources */,

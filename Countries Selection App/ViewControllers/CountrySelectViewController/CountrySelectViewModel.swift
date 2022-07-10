@@ -79,7 +79,7 @@ extension CountrySelectViewModel {
         DispatchQueue.main.async { [self] in
             showIndicator()
         }
-        WebService.shared.getAllCountries { [weak self] res in
+        Repository.shared.getAllCountries { [weak self] res in
             switch res {
             case .success(let countries):
                 self?.prepareCountriesForLoad(countries: countries)

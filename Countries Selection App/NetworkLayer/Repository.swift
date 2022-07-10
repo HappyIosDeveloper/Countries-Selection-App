@@ -14,12 +14,12 @@ class Repository {
     private init() {}
     
     func getAllCountries(comple: @escaping (Result<[Country], WebService.RequestError>)->()) {
-        getLocalDataIfPossible(for: "getAllCountries", withType: [Country].self) { [weak self] result in
+        getLocalDataIfPossible(for: #function, withType: [Country].self) { [weak self] result in
             switch result {
             case .success(_):
                 comple(result)
             case .failure(_):
-                self?.getAndSaveAndContinue(for: "getAllCountries", withType: [Country].self, comple: comple)
+                self?.requestAndSaveAndContinue(for: #function, withType: [Country].self, comple: comple)
             }
         }
     }
@@ -28,7 +28,7 @@ class Repository {
 // MARK: - Base Functionality
 extension Repository {
     
-    private func getAndSaveAndContinue<T:Decodable>(for requestName: String, withType: T.Type, comple: @escaping (Result<T, WebService.RequestError>)->()) {
+    private func requestAndSaveAndContinue<T:Decodable>(for requestName: String, withType: T.Type, comple: @escaping (Result<T, WebService.RequestError>)->()) {
         WebService.shared.getAllCountries { response in
             switch response {
             case .success(let data):
